@@ -1,25 +1,26 @@
-import { useEffect, useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Courses from "./pages/Courses";
+import Students from "./pages/Students";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
-  const [courses, setCourses] = useState([]);
-
-  useEffect(() => {
-    fetch("http://localhost:3000/courses")
-      .then(res => res.json())
-      .then(data => setCourses(data));
-  }, []);
-
   return (
-    <div>
-      <h1>Courses</h1>
+    <BrowserRouter>
+      <Routes>
 
-      {courses.map(course => (
-        <div key={course._id}>
-          <h3>{course.title}</h3>
-          <p>{course.description}</p>
-        </div>
-      ))}
-    </div>
+        {/* Home = Courses */}
+        <Route path="/" element={<Courses />} />
+
+        {/* Students Page */}
+        <Route path="/students" element={<Students />} />
+
+        {/* Auth Pages */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+
+      </Routes>
+    </BrowserRouter>
   );
 }
 
